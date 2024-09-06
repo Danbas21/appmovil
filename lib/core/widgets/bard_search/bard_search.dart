@@ -16,13 +16,13 @@ class BardSearch extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 margin: const EdgeInsets.only(left: 15),
                 child: IconButton(
                   icon: const Icon(
-                    Icons.search,
+                    Icons.person,
                     color: Color(0xFF07090E),
                     size: 24,
                   ),
@@ -38,7 +38,7 @@ class BardSearch extends ConsumerWidget {
                 child: TextField(
                   controller: searchController,
                   decoration: const InputDecoration(
-                    hintText: 'Search...',
+                    hintText: 'CURP',
                     hintStyle: TextStyle(
                       color: Color.fromARGB(74, 7, 9, 14),
                       fontSize: 16,

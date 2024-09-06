@@ -13,7 +13,7 @@ GoRouter appRouter(AppRouterRef ref) => GoRouter(
         GoRoute(
           name: 'home',
           path: '/',
-          builder: (context, state) => const LoginVtwoScreen(),
+          builder: (context, state) => LoginVtwoScreen(),
         ),
         GoRoute(
           name: 'panel',

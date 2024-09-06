@@ -42,6 +42,7 @@ class ChargePhoto extends _$ChargePhoto {
       'image': downloadUrl,
     });
     state = AsyncData(downloadUrl);
+    return null;
   }
 }
 

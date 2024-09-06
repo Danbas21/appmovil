@@ -152,7 +152,7 @@ class _DownProviderElement extends AutoDisposeFutureProviderElement<Uint8List?>
   String get imageUrl => (origin as DownProvider).imageUrl;
 }
 
-String _$chargePhotoHash() => r'5beb970fac04446f66f75de91e2f0dbea1204645';
+String _$chargePhotoHash() => r'9fb9893a0abcfe755ef3f292c4f591876b3cad88';
 
 /// See also [ChargePhoto].
 @ProviderFor(ChargePhoto)
