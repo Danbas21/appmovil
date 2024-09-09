@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:school_management_system/core/providers/app_router.dart';
 import 'package:school_management_system/core/providers/provider_students.dart';
 import 'package:school_management_system/core/screens/card_student.dart';
 import 'package:school_management_system/core/utils/image_constant.dart';
@@ -16,9 +17,15 @@ import 'package:school_management_system/widgets/custom_image_view.dart';
 import '../../widgets/custom_elevated_button.dart';
 
 class LoginVtwoScreen extends ConsumerWidget {
+  const LoginVtwoScreen({super.key});
+
   @override
   Widget build(BuildContext contex, WidgetRef ref) {
     final TextEditingController searchController = TextEditingController();
+
+    final quepasa = ref
+        .read(studentProviderProvider.notifier)
+        .updateStudents('GAMK151226MDFRGRA8');
 
     return SafeArea(
       child: Scaffold(
@@ -83,7 +90,21 @@ class LoginVtwoScreen extends ConsumerWidget {
                             style: theme.textTheme.bodySmall,
                           ),
                           const SizedBox(height: 7),
-                          BardSearch(),
+                          TextField(
+                            controller: searchController,
+                            decoration: const InputDecoration(
+                              hintText: 'CURP',
+                              hintStyle: TextStyle(
+                                color: Color.fromARGB(74, 7, 9, 14),
+                                fontSize: 16,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.bold,
+                                height: 0,
+                                letterSpacing: 0.64,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
                           const SizedBox(height: 15),
                           const Divider(endIndent: 6),
                           const SizedBox(height: 32),
@@ -96,35 +117,25 @@ class LoginVtwoScreen extends ConsumerWidget {
                           const Divider(endIndent: 6),
                           const SizedBox(height: 40),
                           CustomElevatedButton(
-                              text: "lbl_sign_in",
-                              margin: const EdgeInsets.only(right: 6),
-                              rightIcon: Container(
-                                margin: const EdgeInsets.only(left: 30),
-                                child: CustomImageView(
-                                  imagePath: ImageConstant.imgArrowleft,
-                                  height: 17,
-                                  width: 25,
-                                ),
-                              ),
-                              buttonStyle: CustomButtonStyles.none,
-                              decoration: CustomButtonStyles
-                                  .gradientIndigoToPrimaryDecoration,
-                              onPressed: () {
-                                ref
-                                    .read(studentProviderProvider.notifier)
-                                    .updateStudents(searchController.text);
-                                contex.go("/card_student");
-                              }),
-                          const SizedBox(height: 19),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 6),
-                              child: Text(
-                                "msg_forgot_password",
-                                style: CustomTextStyles.bodyLargeBluegray900,
+                            text: "Ingresar",
+                            margin: const EdgeInsets.only(right: 6),
+                            rightIcon: Container(
+                              margin: const EdgeInsets.only(left: 30),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.imgArrowleft,
+                                height: 17,
+                                width: 25,
                               ),
                             ),
+                            buttonStyle: CustomButtonStyles.none,
+                            decoration: CustomButtonStyles
+                                .gradientIndigoToPrimaryDecoration,
+                            onPressed: () {
+                              print(searchController.text);
+                              print(quepasa);
+
+                              ref.read(appRouterProvider).go('/card_student');
+                            },
                           ),
                         ],
                       ),
@@ -144,7 +155,7 @@ class LoginVtwoScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 6),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           CustomImageView(
             imagePath: ImageConstant.imgGrid,
@@ -156,63 +167,6 @@ class LoginVtwoScreen extends ConsumerWidget {
             imagePath: ImageConstant.imgEye,
             height: 12,
             width: 18,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BardSearch extends ConsumerWidget {
-  const BardSearch({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController searchController = TextEditingController();
-
-    return SizedBox(
-      width: 705,
-      height: 50,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 15),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.person,
-                    color: Color(0xFF07090E),
-                    size: 24,
-                  ),
-                  onPressed: () {
-                    ref
-                        .read(studentProviderProvider.notifier)
-                        .updateStudents(searchController.text);
-                  },
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: TextField(
-                  controller: searchController,
-                  decoration: const InputDecoration(
-                    hintText: 'CURP',
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(74, 7, 9, 14),
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      height: 0,
-                      letterSpacing: 0.64,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              )
-            ],
           ),
         ],
       ),

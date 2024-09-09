@@ -3,8 +3,8 @@ import 'package:school_management_system/theme/custom_text_style.dart';
 import 'package:school_management_system/theme/theme_helper.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({
-    Key? key,
+  const CustomTextFormField({
+    super.key,
     this.alignment,
     this.width,
     this.scrollPadding,
@@ -27,9 +27,7 @@ class CustomTextFormField extends StatelessWidget {
     this.fillColor,
     this.filled = false,
     this.validator,
-  }) : super(
-          key: key,
-        );
+  });
 
   final Alignment? alignment;
 
@@ -138,7 +136,7 @@ class CustomTextFormField extends StatelessWidget {
 
 /// Extension on [CustomTextFormField] to facilitate inclusion of all types of border style etc
 extension TextFormFieldStyleHelper on CustomTextFormField {
-  static OutlineInputBorder get fillWhiteA => OutlineInputBorder(
+  static OutlineInputBorder get fillWhiteA => const OutlineInputBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(
             8,
@@ -151,7 +149,7 @@ extension TextFormFieldStyleHelper on CustomTextFormField {
           color: appTheme.blueA400,
         ),
       );
-  static OutlineInputBorder get fillBlue => OutlineInputBorder(
+  static OutlineInputBorder get fillBlue => const OutlineInputBorder(
         borderSide: BorderSide.none,
       );
 }
