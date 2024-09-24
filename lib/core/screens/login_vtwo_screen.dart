@@ -1,32 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:school_management_system/core/providers/app_router.dart';
-import 'package:school_management_system/core/providers/provider_students.dart';
-import 'package:school_management_system/core/screens/card_student.dart';
+
 import 'package:school_management_system/core/utils/image_constant.dart';
-import 'package:school_management_system/core/utils/navigator_service.dart';
-import 'package:school_management_system/core/utils/size_utils.dart';
-import 'package:school_management_system/core/widgets/bard_search/bard_search.dart';
+import 'package:school_management_system/models/authenticationuser.dart';
 import 'package:school_management_system/theme/app_decoration.dart';
 import 'package:school_management_system/theme/custom_button_style.dart';
-import 'package:school_management_system/theme/custom_text_style.dart';
 import 'package:school_management_system/theme/theme_helper.dart';
 import 'package:school_management_system/widgets/custom_image_view.dart';
 
 import '../../widgets/custom_elevated_button.dart';
 
-class LoginVtwoScreen extends ConsumerWidget {
+class LoginVtwoScreen extends ConsumerStatefulWidget {
   const LoginVtwoScreen({super.key});
 
   @override
-  Widget build(BuildContext contex, WidgetRef ref) {
-    final TextEditingController searchController = TextEditingController();
+  LoginVtwoScreenState createState() => LoginVtwoScreenState();
+}
 
-    final quepasa = ref
-        .read(studentProviderProvider.notifier)
-        .updateStudents('GAMK151226MDFRGRA8');
+class LoginVtwoScreenState extends ConsumerState<LoginVtwoScreen> {
+  final TextEditingController curpController = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    curpController.dispose();
+    password.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -91,7 +95,8 @@ class LoginVtwoScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 7),
                           TextField(
-                            controller: searchController,
+                            controller: curpController,
+                            keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
                               hintText: 'CURP',
                               hintStyle: TextStyle(
@@ -109,8 +114,25 @@ class LoginVtwoScreen extends ConsumerWidget {
                           const Divider(endIndent: 6),
                           const SizedBox(height: 32),
                           Text(
-                            "lbl_password",
+                            "Contraseña",
                             style: theme.textTheme.bodySmall,
+                          ),
+                          TextField(
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: password,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              hintText: 'Contraseña',
+                              hintStyle: TextStyle(
+                                color: Color.fromARGB(74, 7, 9, 14),
+                                fontSize: 16,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.bold,
+                                height: 0,
+                                letterSpacing: 0.64,
+                              ),
+                              border: InputBorder.none,
+                            ),
                           ),
                           const SizedBox(height: 9),
                           const SizedBox(height: 17),
@@ -130,11 +152,27 @@ class LoginVtwoScreen extends ConsumerWidget {
                             buttonStyle: CustomButtonStyles.none,
                             decoration: CustomButtonStyles
                                 .gradientIndigoToPrimaryDecoration,
-                            onPressed: () {
-                              print(searchController.text);
-                              print(quepasa);
-
-                              ref.read(appRouterProvider).go('/card_student');
+                            onPressed: () {},
+                          ),
+                          CustomElevatedButton(
+                            text: "Registrate",
+                            margin: const EdgeInsets.only(right: 6),
+                            rightIcon: Container(
+                              margin: const EdgeInsets.only(left: 30),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.imgArrowleft,
+                                height: 17,
+                                width: 25,
+                              ),
+                            ),
+                            buttonStyle: CustomButtonStyles.none,
+                            decoration: CustomButtonStyles
+                                .gradientIndigoToPrimaryDecoration,
+                            onPressed: () async {
+                              await AuthUser().signUpWithEmailAndPassword(
+                                curpController.text,
+                                password.text,
+                              );
                             },
                           ),
                         ],

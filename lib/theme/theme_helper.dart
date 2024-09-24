@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:school_management_system/core/utils/pref_utils.dart';
 import 'package:school_management_system/core/utils/size_utils.dart';
